@@ -14,7 +14,7 @@
         <property name="username" value="${jdbc.userName}"></property>
         <property name="password" value="${jdbc.password}"></property>
     </bean>
-    <bean id="userDao" class="springTest01.userDao.Impl.UserDaoImpl"> </bean>
+    <bean id="userDao" class="springTest01.Dao.Impl.UserDaoImpl"> </bean>
     <bean id="userService" class="springTest01.service.Impl.UserServiceImpl">
         <property name="userDao" ref="userDao"></property>
     </bean>

@@ -1,11 +1,11 @@
-package springTest01.userDao.Impl;
+package springTest01.Dao.Impl;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import springTest01.pojo.User;
-import springTest01.userDao.UserDao;
+import springTest01.Dao.UserDao;
 
 import java.sql.SQLException;
 

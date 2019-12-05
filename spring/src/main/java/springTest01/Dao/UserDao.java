@@ -1,4 +1,4 @@
-package springTest01.userDao;
+package springTest01.Dao;
 
 import springTest01.pojo.User;
 

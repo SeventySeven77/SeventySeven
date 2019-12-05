@@ -2,7 +2,7 @@ package springTest01.service.Impl;
 
 import springTest01.pojo.User;
 import springTest01.service.UserService;
-import springTest01.userDao.UserDao;
+import springTest01.Dao.UserDao;
 
 import java.sql.SQLException;
 
