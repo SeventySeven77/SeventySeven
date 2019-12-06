@@ -1,5 +1,6 @@
 package springTest02.pojo;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("user")

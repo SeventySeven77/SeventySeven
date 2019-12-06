@@ -16,6 +16,7 @@ public class UserDaoImpl implements UserDao {
     private User user;
 
     @Autowired
+    @Qualifier("dataSource")
     private DruidDataSource druidDataSource;
 
     @Override

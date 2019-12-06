@@ -22,7 +22,7 @@ public class springConfiguration {
     private String userName;
     @Value("${jdbc.password}")
     private String password;
-    @Bean
+    @Bean("dataSource")
     public DruidDataSource getDruidDatasource(){
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setDriverClassName(driver);
