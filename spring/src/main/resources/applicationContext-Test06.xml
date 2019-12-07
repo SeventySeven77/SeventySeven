@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+                                http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--读取jdbc.properties文件-->
+    <context:property-placeholder location="jdbc.properties"></context:property-placeholder>
+    <!--注册Druid dataSource-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.userName}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+    <!--注册jdbcTemplate 注入dataSource-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+
+    <!--注入user-->
+    <bean id="user" class="springTest06.Pojo.User"></bean>
+    <!--注入userDao-->
+    <bean id="userDao" class="springTest06.dao.Impl.UserDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <!--注入service-->
+    <bean id="userService" class="springTest06.service.Impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"></property>
+    </bean>
+    <bean id="moneyUser" class="springTest06.service.Impl.MoneyUserImpl">
+        <property name="userService" ref="userService"></property>
+        <property name="user" ref="user"></property>
+    </bean>
+
+
+    <!--配置平台事务管理器-->
+    <bean id="manager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!--配置事务控制通知/增强-->
+    <tx:advice id="advice01" transaction-manager="manager">
+        <tx:attributes>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--aop织入通知-->
+    <aop:config>
+        <aop:advisor advice-ref="advice01" pointcut="execution(public void springTest06.service.MoneyUser.todo())"></aop:advisor>
+    </aop:config>
+
+
+
+
+</beans>
